@@ -89,12 +89,15 @@ class Car {
   }
 
   drive(distance){
-    this.odometer += distance;
-   let distanceDriven = (distance/this.milesPerGallon);
-   this.tank = this.tank - Math.round(distanceDriven);
-   if(distanceDriven > this.tank){
+    const mileRange = this.tank * this.milesPerGallon;
+   if(distance > mileRange){
+    this.odometer += mileRange;
+    this.tank = 0;
      return `I ran out of fuel at ${this.odometer} miles!`;
-  }
+   } else{
+     this.odometer += distance;
+     this.tank = this.tank - (distance/this.milesPerGallon);
+   }
 }
 }
 
@@ -152,7 +155,7 @@ class Instructor extends Lambdasian {
   }
 
   demo(subject){
-    return `Today we are learning about ${subject}`
+    return `Today we are learning about ${subject}`;
   }
 
   grade(student, subject){
